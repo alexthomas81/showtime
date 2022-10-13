@@ -8,11 +8,13 @@ function Home() {
 
   useEffect(() => {
     if (countries.length == 0) {
-      fetch('https://jsonplaceholder.typicode.com/todos')
+      fetch('https://api.themoviedb.org/3/trending/all/day?api_key=44690770c7218f35a73e5bdda03ad0bd')
         .then(response => response.json())
-        .then(data => setCountries(data));
+        .then(data => setCountries(data.results));
     }
   }, [countries])
+
+  console.log(countries)
 
   const newList = countryname ? countries.filter(element => { return element.title.toLowerCase().includes(countryname.toLowerCase()) }) : countries;
 
@@ -34,8 +36,9 @@ function Home() {
       </div>
       {newList.map((list, index) =>
         <div className="countryItem" key={index}>
-          <div className="countryName">{list.title}</div>
-          <div className="countryDetail">Capital : {list.completed}</div>
+          <div className="countryName">{list.title ? list.title : list.name}</div>
+          <div className="countryDetail">Release : {list.release_date}</div>
+          <div className="countryImage"><img src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${list.poster_path}`} /></div>
         </div>
       )}
     </div>

@@ -15,3 +15,31 @@
 .Home-link {
   color: #61dafb;
 }
+
+.countryItem {
+  position: relative;
+  margin: auto;
+  height: 27px;
+  width: 500px;
+  border: 1px solid black;
+}
+
+.countryName {
+  float: left;
+  text-align: left;
+  width: 400px;
+}
+
+.countryDetail {
+  position: absolute;
+  width: 300px;
+  right: -305px;
+  background-color: #61dafb;
+  text-align: left;
+}
+
+.countryImage {
+  float: left;
+  width: 300px;
+  text-align: left;
+}
