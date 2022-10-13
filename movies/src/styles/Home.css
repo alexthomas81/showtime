@@ -11,35 +11,35 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
-.Home-link {
-  color: #61dafb;
-}
-
-.countryItem {
-  position: relative;
+.movieList {
   margin: auto;
-  height: 27px;
-  width: 500px;
-  border: 1px solid black;
+  width: 1200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  @media only screen and (max-width: 600px) { width: 100%; }
+}
+.movieItem {
+  width: 220px;  
+  margin: auto;
+  border: 1px solid black;  
+  @media only screen and (max-width: 600px) { width: 100%; }
 }
 
-.countryName {
+.movieName {
   float: left;
   text-align: left;
   width: 400px;
 }
-
-.countryDetail {
-  position: absolute;
+.movieRelease {
   width: 300px;
-  right: -305px;
-  background-color: #61dafb;
   text-align: left;
 }
-
-.countryImage {
-  float: left;
+.movieImage {
   width: 300px;
   text-align: left;
+}
+.movieLinks {
+  float: left;
 }
