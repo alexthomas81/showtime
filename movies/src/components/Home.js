@@ -1,83 +1,129 @@
 import { Fragment, Suspense, useEffect, useState } from 'react';
+import moment from 'moment';
 import '../styles/Home.css';
+import CloseIcon from '@material-ui/icons/Close';
+import GradeIcon from '@material-ui/icons/Grade';
+import MovieIcon from '@material-ui/icons/Movie';
+import WatchLaterIcon from '@material-ui/icons/WatchLater';
 
 function Home() {
-
+  const [width, setWidth] = useState(window.innerWidth);
+  let APIURL = 'https://api.themoviedb.org/3/'
   let APIKEY = '44690770c7218f35a73e5bdda03ad0bd'
-  const [countries, setCountries] = useState([])
-  const [countryname, setCountry] = useState(null)
-  const [alertData, setAlertData] = useState(null)
+  const [movies, setMovies] = useState([])
+  const [filmname, setFilm] = useState(null)
+  const [trailerData, setTrailerData] = useState(null)
   const [videos, setVideos] = useState([])
-
-  useEffect(() => {
-    if (countries.length == 0) {
-      fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${APIKEY}`)
-        .then(response => response.json())
-        .then(data => setCountries(data.results));
-    }
-  }, [countries])
-
-  const newList = countryname ? countries.filter(element => { return element.title ? element.title.toLowerCase().includes(countryname.toLowerCase()) : element.name.toLowerCase().includes(countryname.toLowerCase()) }) : countries;
-
-  const handleCountrySearch = (e) => {
-    setCountry(e.target.value)
+  const [favourites, setFavourites] = useState([])
+  const [watch, setWatch] = useState([])
+  const handleWindowSizeChange = () => {
+    setWidth(window.innerWidth);
   }
 
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (movies.length === 0) {
+      fetch(`${APIURL}trending/all/day?api_key=${APIKEY}`)
+        .then(response => response.json())
+        .then(data => setMovies(data.results));
+    }
+  }, [movies, APIKEY, APIURL])
+
+  const newList = filmname ? movies.filter(element => { return element.title ? element.title.toLowerCase().includes(filmname.toLowerCase()) : element.name.toLowerCase().includes(filmname.toLowerCase()) }) : movies;
+  const handleSearchMovie = (e) => {
+    setFilm(e.target.value)
+  }
+
+  const handleClose = e => {
+    e.stopPropagation();
+    setTrailerData(null);
+  }
   const ShowTrailer = (path) => {
-    fetch(`https://api.themoviedb.org/3/movie/${path}/videos?api_key=${APIKEY}`)
+    fetch(`${APIURL}movie/${path}/videos?api_key=${APIKEY}`)
       .then(response => response.json())
       .then(data => {
         if (data.results) {
           setVideos(data.results)
-          setAlertData(path)
+          setTrailerData(path)
         } else {
-          setAlertData(null)
+          setTrailerData(null)
         }
       })
       .catch(error => {
-        setAlertData(null)
+        setTrailerData(null)
         throw (error);
       })
+  }
+
+  const addFavourite = (id) => {
+    let newState = [...favourites];
+    newState[newState.length] = id
+    let unique = [...new Set(newState)];
+    setFavourites(unique)
+  }
+
+  const watchLater = (id) => {
+    let newState = [...watch];
+    newState[newState.length] = id
+    let unique = [...new Set(newState)];
+    setWatch(unique)
   }
 
   return (
     <div className="Home">
       <header className="Home-header">
-        <p>
-          Show Time!
-        </p>
+        <p>Show Time!</p>
       </header>
       <div>
-        <input type="text" id="searchCountry" onChange={handleCountrySearch} />
+        <input type="text" className="searchMovie" id="searchMovie" onChange={handleSearchMovie} />
       </div>
       <div className="movieList">
         {newList.map((list, index) =>
           <div className="movieItem" key={index}>
-            <div className="movieImage"><img src={`https://image.tmdb.org/t/p/w220_and_h330_face/${list.poster_path}`} /></div>
-            <div className="movieName">{list.title ? list.title : list.name}</div>
-            <div className="movieRelease">Release : {list.release_date}</div>
+            <div className="movieImage">
+              <img
+                alt={list.title ? list.title : list.name}
+                src={width > 1024 ? `https://image.tmdb.org/t/p/w220_and_h330_face/${list.poster_path}` : `https://image.tmdb.org/t/p/w300/${list.poster_path}`}
+              />
+            </div>
+            <div className="movieName">{list.title ? list.title.substring(0, 30) : list.name.substring(0, 30)}</div>
+            <div className="movieRelease">{moment(list.release_date).format("LL")}</div>
             <div className="movieLinks">
-              Star -
-              Watch Later -
-              <a onClick={() => ShowTrailer(list.id)}> Trailers </a>
+              <GradeIcon onClick={() => addFavourite(list.id)} style={{ color: favourites.includes(list.id) ? "red" : "black", cursor: "pointer" }} />
+              <WatchLaterIcon onClick={() => watchLater(list.id)} style={{ color: watch.includes(list.id) ? "green" : "black", cursor: "pointer" }} />
+              <MovieIcon onClick={() => ShowTrailer(list.id)} style={{ color: "blue", cursor: "pointer" }} />
             </div>
           </div>
         )}
       </div>
 
-      {alertData ? (
+      {trailerData ? (
         <Suspense>
-          <div>
-            {videos.length > 0 && videos.map((list, index) =>
-              <div key={index}>
-                <iframe type="text/html"
-                  width="200"
-                  height="200"
-                  src={`http://www.youtube.com/embed/${list.key}`}
-                  frameborder="0">
-                </iframe>
+          <div className="app-checkout-exp-container">
+            <div className="app-checkout-exp-tooltip">
+              <CloseIcon style={{ color: "blue", cursor: "pointer" }} onClick={handleClose} />
+              <div className="detail">
+                {videos.length > 0 && videos.slice(0, width > 1024 ? 4 : 2).map((list, index) =>
+                  <div className="detailitem" key={index}>
+                    <iframe
+                      type="text/html"
+                      title={list.id}
+                      width={width > 1024 ? 200 : 150}
+                      height="200"
+                      src={`http://www.youtube.com/embed/${list.key}`}
+                      frameBorder="0">
+                    </iframe>
+                  </div>
+                )}
               </div>
-            )}
+              {videos.length === 0 ? 'No trailers found.' : ''}
+            </div>
           </div>
         </Suspense>
       ) : <Fragment />}

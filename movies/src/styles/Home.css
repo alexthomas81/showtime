@@ -8,9 +8,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(32px + 2vmin);
   color: white;
+  font-style: italic;
 }
+
+.searchMovie {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #CCCCCC;
+  border-radius: 10px;
+}
+
 .movieList {
   margin: auto;
   width: 1200px;
@@ -18,28 +27,99 @@
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
-  @media only screen and (max-width: 600px) { width: 100%; }
 }
+
+@media only screen and (max-width: 600px) {
+  .movieList {
+    width: 100%;
+  }
+}
+
 .movieItem {
-  width: 220px;  
+  width: 220px;
   margin: auto;
-  border: 1px solid black;  
-  @media only screen and (max-width: 600px) { width: 100%; }
+  border: 1px solid black;
+}
+
+@media only screen and (max-width: 600px) {
+  .movieItem {
+    width: 100%;
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid black;
+  }
 }
 
 .movieName {
-  float: left;
-  text-align: left;
-  width: 400px;
+  font-weight: 500;
+  text-align: center;
 }
+
 .movieRelease {
-  width: 300px;
-  text-align: left;
+  text-align: center;
 }
+
 .movieImage {
   width: 300px;
   text-align: left;
 }
+
+@media only screen and (max-width: 600px) {
+  .movieImage {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 .movieLinks {
-  float: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 30px;
+}
+
+.app-checkout-exp-container {
+  z-index: 10;
+  margin: auto;
+  z-index: 1;
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  bottom: 0;
+}
+
+.app-checkout-exp-tooltip {
+  margin: auto;
+  background-color: #FFFFFF;
+  padding: 20px;
+  top: 100px;
+  text-align: center;
+  border-radius: 10px;
+  box-sizing: border-box;
+  z-index: 9999;
+  width: 860px;
+}
+
+@media only screen and (max-width: 600px) {
+  .app-checkout-exp-tooltip {
+    padding: 10px;
+    width: 100%;
+    top: unset;
+    bottom: 48px;
+    left: 0px;
+    padding-top: 35px;
+    padding-bottom: 26px;
+  }
+}
+
+.detail {  
+  display: flex;
+  flex-direction: row;
+}
+
+.detailitem {
+  padding: 0 2px;
 }
