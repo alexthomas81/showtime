@@ -45,9 +45,9 @@ function Movies({ movieList, page, updatePage, width, personal, setPersonal, Sho
                     <div className="movieName">{list.title ? list.title.substring(0, 26) : list.name.substring(0, 26)}</div>
                     <div className="movieRelease">{moment(list.release_date).format("LL")}</div>
                     <div className="movieLinks">
-                        <GradeIcon onClick={() => addFavourite(list.id, personal.favourites.includes(list.id) ? true : false)} style={{ color: personal.favourites.includes(list.id) ? "red" : "black", cursor: "pointer" }} />
-                        <WatchLaterIcon onClick={() => watchLater(list.id, personal.watchLater.includes(list.id) ? true : false)} style={{ color: personal.watchLater.includes(list.id) ? "green" : "black", cursor: "pointer" }} />
-                        <MovieIcon onClick={() => ShowTrailer(list.id)} style={{ color: "blue", cursor: "pointer" }} />
+                        <GradeIcon title="Favourite" alt="Favourite" placement="start-top" onClick={() => addFavourite(list.id, personal.favourites.includes(list.id) ? true : false)} style={{ color: personal.favourites.includes(list.id) ? "red" : "black", cursor: "pointer" }} />
+                        <WatchLaterIcon title="Watch Later" alt="Watch Later" placement="start-top" onClick={() => watchLater(list.id, personal.watchLater.includes(list.id) ? true : false)} style={{ color: personal.watchLater.includes(list.id) ? "green" : "black", cursor: "pointer" }} />
+                        <MovieIcon title="Trailers" alt="Trailers" placement="start-top" onClick={() => ShowTrailer(list.id)} style={{ color: "blue", cursor: "pointer" }} />
                     </div>
                 </div>
             )}
