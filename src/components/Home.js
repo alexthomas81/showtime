@@ -13,13 +13,13 @@ function Home() {
   let APIURL = 'https://api.themoviedb.org/3/'
   let APIKEY = '44690770c7218f35a73e5bdda03ad0bd'
   const [movies, setMovies] = useState([])
-  const [filmname, setFilm] = useState(null)
   const [trailerData, setTrailerData] = useState(null)
   const [videos, setVideos] = useState([])
   const [personal, setPersonal] = useState({
     favourites: [],
     watchLater: []
   })
+  const [movieList, setMovieLists] = useState([])
   const handleWindowSizeChange = () => {
     setWidth(window.innerWidth);
   }
@@ -35,13 +35,20 @@ function Home() {
     if (movies.length === 0) {
       fetch(`${APIURL}trending/all/day?api_key=${APIKEY}`)
         .then(response => response.json())
-        .then(data => setMovies(data.results));
+        .then(data => {
+          setMovies(data.results)
+        });
     }
   }, [movies, APIKEY, APIURL])
 
-  const newList = filmname ? movies.filter(element => { return element.title ? element.title.toLowerCase().includes(filmname.toLowerCase()) : element.name.toLowerCase().includes(filmname.toLowerCase()) }) : movies;
+  useEffect(() => {
+    if (movies.length >= 0) {
+      setMovieLists(movies)
+    }
+  }, [movies]);
+
   const handleSearchMovie = (e) => {
-    setFilm(e.target.value)
+    setMovieLists(movies.filter(element => { return element.title ? element.title.toLowerCase().includes(e.target.value.toLowerCase()) : element.name.toLowerCase().includes(e.target.value.toLowerCase()) }))
   }
 
   const ShowTrailer = (path) => {
@@ -75,21 +82,40 @@ function Home() {
     setPersonal({ ...personal, watchLater: unique })
   }
 
+  const callHome = () => {
+    setMovieLists(movies)
+  }
+
+  const callFavourites = () => {
+    let newList = movies.filter(element => { return personal.favourites.includes(element.id) })
+    setMovieLists(newList)
+  }
+
+  const callWatchLater = () => {
+    let newList = movies.filter(element => { return personal.watchLater.includes(element.id) })
+    setMovieLists(newList)
+  }
+
   return (
     <div className="Home">
       <header className="Home-header">
-        <p>Show Time!</p>
+        <p>Feel Good!</p>
       </header>
       <div>
         <input type="text" className="searchMovie" id="searchMovie" onChange={handleSearchMovie} />
       </div>
+      <div className="Home-links">
+        <a onClick={() => callHome()}>Home</a>
+        <a onClick={() => callFavourites()}>Favourites</a>
+        <a onClick={() => callWatchLater()}>Watch Later</a>
+      </div>
       <div className="movieList">
-        {newList.map((list, index) =>
+        {movieList.map((list, index) =>
           <div className="movieItem" key={index}>
             <div className="movieImage">
-              <img
+              <img 
                 alt={list.title ? list.title : list.name}
-                src={width > 1024 ? `https://image.tmdb.org/t/p/w220_and_h330_face/${list.poster_path}` : `https://image.tmdb.org/t/p/w300/${list.poster_path}`}
+                src={width > 1024 ? `https://image.tmdb.org/t/p/w220_and_h330_face/${list.poster_path}` : `https://image.tmdb.org/t/p/w200/${list.poster_path}`}
               />
             </div>
             <div className="movieName">{list.title ? list.title.substring(0, 26) : list.name.substring(0, 26)}</div>
