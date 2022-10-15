@@ -1,0 +1,64 @@
+.movieList {
+  margin: auto;
+  width: 1200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 600px) {
+  .movieList {
+    width: 100%;
+  }
+}
+
+.movieItem {
+  width: 220px;
+  margin: auto;
+  border: 1px solid #CCCCCC;
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .movieItem {
+    width: 48%;
+    padding: 2px;
+    border: none;
+    border-bottom: 1px solid #CCCCCC;
+  }
+}
+
+.movieName {
+  font-weight: 500;
+  text-align: center;
+}
+
+.movieRelease {
+  text-align: center;
+}
+
+.movieImage {
+  width: 300px;
+  text-align: left;
+}
+
+@media only screen and (max-width: 600px) {
+  .movieImage {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.movieLinks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  .movieLinks {
+    margin: 0 60px;
+  }
+}
