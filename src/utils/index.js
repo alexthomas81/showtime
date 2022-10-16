@@ -1,14 +1,14 @@
 export const APIURL = 'https://api.themoviedb.org/3/'
 export const APIKEY = '44690770c7218f35a73e5bdda03ad0bd'
-export const webSize = 1024
-export const webFrame = 300
-export const mobFrame = 190
-export const movieNameLength = 26
-export const homePage = 'HOME'
-export const favouritesPage = 'FAVOURITE'
-export const watchLaterPage = 'WATCHLATER'
-export const favouritesSection = 'FAV'
-export const watchLaterSection = 'WAT'
+export const WEB_SIZE = 1024
+export const WEB_FRAME = 300
+export const MOB_FRAME = 190
+export const MOVIE_NAME_LENGTH = 26
+export const HOME_PAGE = 'HOME'
+export const FAVOURITES_PAGE = 'FAVOURITE'
+export const WATCHLATER_PAGE = 'WATCHLATER'
+export const FAVOURITES_SECTION = 'FAV'
+export const WATCHLATER_SECTION = 'WAT'
 
 export const createArray = (status, newState, id) => {
     let newArray = ''

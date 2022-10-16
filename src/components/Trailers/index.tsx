@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import './style.css';
-import { webSize, webFrame, mobFrame } from "../../utils"
+import { WEB_SIZE, WEB_FRAME, MOB_FRAME } from "../../utils"
 import CloseIcon from '@material-ui/icons/Close';
 
 type Props = {
@@ -25,8 +25,8 @@ const Trailers: FunctionComponent<Props> = ({ videos, width, setTrailerData }) =
             <div className="trailer-item" key={index}>
               <iframe
                 title={list.id}
-                width={width > webSize ? webFrame : mobFrame}
-                height={width > webSize ? webFrame : mobFrame}
+                width={width > WEB_SIZE ? WEB_FRAME : MOB_FRAME}
+                height={width > WEB_SIZE ? WEB_FRAME : MOB_FRAME}
                 src={`http://www.youtube.com/embed/${list.key}`}
                 frameBorder="0">
               </iframe>

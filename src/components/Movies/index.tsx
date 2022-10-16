@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 import moment from 'moment';
 import './style.css';
-import { webSize, createArray, movieNameLength, favouritesSection, watchLaterSection } from "../../utils"
+import { WEB_SIZE, createArray, MOVIE_NAME_LENGTH, FAVOURITES_SECTION, WATCHLATER_SECTION } from "../../utils"
 import GradeIcon from '@material-ui/icons/Grade';
 import MovieIcon from '@material-ui/icons/Movie';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
@@ -30,14 +30,16 @@ const Movies: FunctionComponent<Props> = ({ movieList, page, updatePage, width, 
     let newState = [...favourites];
     let newArray = createArray(status, newState, id)
     setFavourites(newArray)
-    updatePage(page, favouritesSection, newArray)
+    localStorage.setItem(FAVOURITES_SECTION, JSON.stringify(newArray))
+    updatePage(page, FAVOURITES_SECTION, newArray)
   }
 
   const addWatchLater = (id: number, status: boolean) => {
     let newState = [...watchLater];
     let newArray = createArray(status, newState, id)
     setWatchLater(newArray)
-    updatePage(page, watchLaterSection, newArray)
+    localStorage.setItem(WATCHLATER_SECTION, JSON.stringify(newArray))
+    updatePage(page, WATCHLATER_SECTION, newArray)
   }
 
   return (
@@ -47,10 +49,10 @@ const Movies: FunctionComponent<Props> = ({ movieList, page, updatePage, width, 
           <div className="movieImage">
             <img
               alt={list.title ? list.title : list.name}
-              src={width > webSize ? `https://image.tmdb.org/t/p/w220_and_h330_face/${list.poster_path}` : `https://image.tmdb.org/t/p/w200/${list.poster_path}`}
+              src={width > WEB_SIZE ? `https://image.tmdb.org/t/p/w220_and_h330_face/${list.poster_path}` : `https://image.tmdb.org/t/p/w200/${list.poster_path}`}
             />
           </div>
-          <div className="movieName">{list.title ? list.title.substring(0, movieNameLength) : list.name.substring(0, movieNameLength)}</div>
+          <div className="movieName">{list.title ? list.title.substring(0, MOVIE_NAME_LENGTH) : list.name.substring(0, MOVIE_NAME_LENGTH)}</div>
           <div className="movieRelease">{moment(list.release_date).format("LL")}</div>
           <div className="movieLinks">
             <>

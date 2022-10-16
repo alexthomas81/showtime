@@ -1,24 +1,27 @@
 import { FunctionComponent, Fragment, Suspense, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic'
 import './style.css';
-import { APIURL, APIKEY, homePage, favouritesPage, watchLaterPage, favouritesSection, watchLaterSection } from "../../utils"
+import { APIURL, APIKEY, HOME_PAGE, FAVOURITES_PAGE, WATCHLATER_PAGE, FAVOURITES_SECTION, WATCHLATER_SECTION } from "../../utils"
 
 const Trailers = dynamic(() => import('../Trailers'))
 const Movies = dynamic(() => import('../Movies'))
 
 const Home: FunctionComponent = () => {
+  let geFavourites: any = localStorage.getItem(FAVOURITES_SECTION)
+  let getWatchLater: any = localStorage.getItem(WATCHLATER_SECTION)
+
   const [width, setWidth] = useState(window.innerWidth);
   const [movies, setMovies] = useState<any | []>([])
   const [trailerData, setTrailerData] = useState<Number | null>(null)
   const [videos, setVideos] = useState<any | []>([])
-  const [favourites, setFavourites] = useState<any | []>([])
-  const [watchLater, setWatchLater] = useState<any | []>([])
+  const [favourites, setFavourites] = useState<any | []>(JSON.parse(geFavourites) != null ? JSON.parse(geFavourites) : [])
+  const [watchLater, setWatchLater] = useState<any | []>(JSON.parse(getWatchLater) != null ? JSON.parse(getWatchLater) : [])
   const [movieList, setMovieLists] = useState<any | []>([])
   const handleWindowSizeChange = () => {
     setWidth(window.innerWidth);
   }
-  const [page, setPage] = useState(homePage)
-
+  const [page, setPage] = useState(HOME_PAGE)
+  
   useEffect(() => {
     window.addEventListener('resize', handleWindowSizeChange);
     return () => {
@@ -65,7 +68,7 @@ const Home: FunctionComponent = () => {
 
   const callHome = () => {
     setMovieLists(movies)
-    setPage(homePage)
+    setPage(HOME_PAGE)
   }
 
   const callSections = (array: any, page: string) => {
@@ -76,13 +79,13 @@ const Home: FunctionComponent = () => {
   }
 
   const updatePage = (page: string, type: string, array: [{ id: never }]) => {
-    if (page === homePage) { setMovieLists(movies) }
+    if (page === HOME_PAGE) { setMovieLists(movies) }
     let newList: string[] = [];
-    if (page === favouritesPage && type === favouritesSection) {
+    if (page === FAVOURITES_PAGE && type === FAVOURITES_SECTION) {
       newList = movies.filter((element: any) => { return array.includes(element.id) })
       setMovieLists(newList)
     }
-    if (page === watchLaterPage && type === watchLaterSection) {
+    if (page === WATCHLATER_PAGE && type === WATCHLATER_SECTION) {
       newList = movies.filter((element: any) => { return array.includes(element.id) })
       setMovieLists(newList)
     }
@@ -97,8 +100,8 @@ const Home: FunctionComponent = () => {
     </div>
     <div className="Home-links">
       <div onClick={() => callHome()}>Home</div>
-      <div onClick={() => callSections(favourites, favouritesPage)}>Favourites</div>
-      <div onClick={() => callSections(watchLater, watchLaterPage)}>Watch Later</div>
+      <div onClick={() => callSections(favourites, FAVOURITES_PAGE)}>Favourites</div>
+      <div onClick={() => callSections(watchLater, WATCHLATER_PAGE)}>Watch Later</div>
     </div>
     <Movies
       movieList={movieList}
