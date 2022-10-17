@@ -1,10 +1,10 @@
 ## Getting Started with Feel Good!
 
-This project was listing movies. 
+This project is listing movies. 
 Here user can search movie by name.
-User can add Movie as Fauvourite list.
+User can add Movie to Favourite list.
 User can also add Movie to Watch Later list.
-User can able to see the list of videos.
+User can see the list of videos.
 
 ## Available Scripts
 
@@ -13,7 +13,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000] to view it in the browser.
 
 ### `npm test`
 
