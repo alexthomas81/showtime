@@ -96,7 +96,7 @@ const Home: FunctionComponent = () => {
       <p>Feel Good!</p>
     </header>
     <div>
-      <input type="text" className="searchMovie" id="searchMovie" onChange={handleSearchMovie} />
+      <input type="text" className="searchMovie" data-testid="searchMovie" id="searchMovie" onChange={handleSearchMovie} />
     </div>
     <div className="Home-links">
       <div onClick={() => callHome()}>Home</div>

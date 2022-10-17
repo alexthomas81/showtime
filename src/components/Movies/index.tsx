@@ -8,7 +8,7 @@ import WatchLaterIcon from '@material-ui/icons/WatchLater';
 
 type Props = {
   movieList: [{
-    id: never,
+    id: number,
     title: string,
     name: string,
     release_date: string,
@@ -48,11 +48,12 @@ const Movies: FunctionComponent<Props> = ({ movieList, page, updatePage, width, 
         <div className="movieItem" key={index}>
           <div className="movieImage">
             <img
+              data-testid={`${list.poster_path}:movie_image`}
               alt={list.title ? list.title : list.name}
               src={width > WEB_SIZE ? `https://image.tmdb.org/t/p/w220_and_h330_face/${list.poster_path}` : `https://image.tmdb.org/t/p/w200/${list.poster_path}`}
             />
           </div>
-          <div className="movieName">{list.title ? list.title.substring(0, MOVIE_NAME_LENGTH) : list.name.substring(0, MOVIE_NAME_LENGTH)}</div>
+          <div className="movieName" data-testid={`${list.title ? list.title : list.name}:movie_name`}>{list.title ? list.title.substring(0, MOVIE_NAME_LENGTH) : list.name.substring(0, MOVIE_NAME_LENGTH)}</div>
           <div className="movieRelease">{moment(list.release_date).format("LL")}</div>
           <div className="movieLinks">
             <>
