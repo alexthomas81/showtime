@@ -1,6 +1,6 @@
 import { FunctionComponent, Fragment, Suspense, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic'
-import './style.css';
+import './style.scss';
 import { APIURL, APIKEY, HOME_PAGE, FAVOURITES_PAGE, WATCHLATER_PAGE, FAVOURITES_SECTION, WATCHLATER_SECTION } from "../../utils"
 
 const Trailers = dynamic(() => import('../Trailers'))
