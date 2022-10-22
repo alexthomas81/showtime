@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import moment from 'moment';
-import './style.css';
+import './style.scss';
 import { WEB_SIZE, createArray, MOVIE_NAME_LENGTH, FAVOURITES_SECTION, WATCHLATER_SECTION } from "../../utils"
 import GradeIcon from '@material-ui/icons/Grade';
 import MovieIcon from '@material-ui/icons/Movie';

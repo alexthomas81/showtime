@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import './style.css';
+import './style.scss';
 import { WEB_SIZE, WEB_FRAME, MOB_FRAME } from "../../utils"
 import CloseIcon from '@material-ui/icons/Close';
 
