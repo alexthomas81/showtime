@@ -3,10 +3,10 @@
 // Import Modules
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import StudentForm from "./StudentForm";
+import Column from "./column";
 
 // CreateStudent Component
-const CreateStudent = () => {
+const Create = () => {
     const [formValues, setFormValues] =
         useState({ name: '', email: '', rollno: '' })
     // onSubmit handler
@@ -25,13 +25,13 @@ const CreateStudent = () => {
 
     // Return student form
     return (
-        <StudentForm initialValues={formValues}
+        <Column initialValues={formValues}
             onSubmit={onSubmit}
             enableReinitialize>
             Create Student
-        </StudentForm>
+        </Column>
     )
 }
 
 // Export CreateStudent Component
-export default CreateStudent
+export default Create

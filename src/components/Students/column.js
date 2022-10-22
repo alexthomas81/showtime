@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FormGroup, FormControl, Button } from "react-bootstrap";
 
-const StudentForm = (props) => {
+const Column = (props) => {
     const validationSchema = Yup.object().shape({
         name: Yup.string().required("Required"),
         email: Yup.string()
@@ -56,4 +56,4 @@ const StudentForm = (props) => {
     );
 };
 
-export default StudentForm;
+export default Column;

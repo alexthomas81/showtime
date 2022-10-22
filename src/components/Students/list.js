@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table } from "react-bootstrap";
-import StudentTableRow from "./StudentTableRow";
+import Row from "./row";
 
-const StudentList = () => {
+const List = () => {
     const [students, setStudents] = useState([]);
 
     useEffect(() => {
@@ -19,7 +19,7 @@ const StudentList = () => {
 
     const DataTable = () => {
         return students.map((res, i) => {
-            return <StudentTableRow obj={res} key={i} />;
+            return <Row obj={res} key={i} />;
         });
     };
 
@@ -40,4 +40,4 @@ const StudentList = () => {
     );
 };
 
-export default StudentList;
+export default List;

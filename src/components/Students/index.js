@@ -6,9 +6,9 @@ import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 // Import other React Component
-import CreateStudent from "./create";
-import EditStudent from "./edit";
-import StudentList from "./list";
+import Create from "./create";
+import Edit from "./edit";
+import List from "./list";
 
 const Students = () => {
   return (
@@ -48,10 +48,10 @@ const Students = () => {
             <Col md={12}>
               <div className="wrapper">
                 <Routes>
-                  <Route path="/" element={<CreateStudent />} />
-                  <Route path="/create-student" element={<CreateStudent />} />
-                  <Route path="/edit-student/:id" element={<EditStudent />} />
-                  <Route path="/student-list" element={<StudentList />} />
+                  <Route path="/" element={<Create />} />
+                  <Route path="/create-student" element={<Create />} />
+                  <Route path="/edit-student/:id" element={<Edit />} />
+                  <Route path="/student-list" element={<List />} />
                 </Routes>
               </div>
             </Col>

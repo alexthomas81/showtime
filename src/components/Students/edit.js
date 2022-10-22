@@ -4,10 +4,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import axios from "axios";
-import StudentForm from "./StudentForm";
+import Column from "./column";
 
 // EditStudent Component
-const EditStudent = (props) => {
+const Edit = (props) => {
     const { id } = useParams();
     const [formValues, setFormValues] = useState({
         name: "",
@@ -41,15 +41,15 @@ const EditStudent = (props) => {
 
     // Return student form
     return (
-        <StudentForm
+        <Column
             initialValues={formValues}
             onSubmit={onSubmit}
             enableReinitialize
         >
             Update Student
-        </StudentForm>
+        </Column>
     );
 };
 
 // Export EditStudent Component
-export default EditStudent;
+export default Edit;

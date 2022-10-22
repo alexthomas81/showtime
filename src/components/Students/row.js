@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const StudentTableRow = (props) => {
+const Row = (props) => {
     const { _id, name, email, rollno } = props.obj;
 
     const deleteStudent = () => {
@@ -38,4 +38,4 @@ const StudentTableRow = (props) => {
     );
 };
 
-export default StudentTableRow;
+export default Row;
