@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 import moment from 'moment';
 import './style.scss';
-import { WEB_SIZE, createArray, MOVIE_NAME_LENGTH, FAVOURITES_SECTION, WATCHLATER_SECTION } from "../../utils"
+import { WEB_SIZE, createArray, MOVIE_NAME_LENGTH_DESKTOP, MOVIE_NAME_LENGTH_MOBILE, FAVOURITES_SECTION, WATCHLATER_SECTION } from "../../utils"
 import GradeIcon from '@material-ui/icons/Grade';
 import MovieIcon from '@material-ui/icons/Movie';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
@@ -50,10 +50,10 @@ const Movies: FunctionComponent<Props> = ({ movieList, page, updatePage, width, 
             <img
               data-testid={`${list.poster_path}:movie_image`}
               alt={list.title ? list.title : list.name}
-              src={width > WEB_SIZE ? `https://image.tmdb.org/t/p/w220_and_h330_face/${list.poster_path}` : `https://image.tmdb.org/t/p/w200/${list.poster_path}`}
+              src={width > WEB_SIZE ? `https://image.tmdb.org/t/p/w220_and_h330_face/${list.poster_path}` : `https://image.tmdb.org/t/p/w154/${list.poster_path}`}
             />
           </div>
-          <div className="movieName" data-testid={`${list.title ? list.title : list.name}:movie_name`}>{list.title ? list.title.substring(0, MOVIE_NAME_LENGTH) : list.name.substring(0, MOVIE_NAME_LENGTH)}</div>
+          <div className="movieName" data-testid={`${list.title ? list.title : list.name}:movie_name`}>{list.title ? list.title.substring(0, width > WEB_SIZE ? MOVIE_NAME_LENGTH_DESKTOP : MOVIE_NAME_LENGTH_MOBILE) : list.name.substring(0, width > WEB_SIZE ? MOVIE_NAME_LENGTH_DESKTOP : MOVIE_NAME_LENGTH_MOBILE)}</div>
           <div className="movieRelease">{moment(list.release_date).format("LL")}</div>
           <div className="movieLinks">
             <>
