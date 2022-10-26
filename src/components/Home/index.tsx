@@ -7,15 +7,15 @@ const Trailers = dynamic(() => import('../Trailers'))
 const Movies = dynamic(() => import('../Movies'))
 
 const Home: FunctionComponent = () => {
-  let geFavourites: any = localStorage.getItem(FAVOURITES_SECTION)
-  let getWatchLater: any = localStorage.getItem(WATCHLATER_SECTION)
+  const getFavourites: any = localStorage.getItem(FAVOURITES_SECTION)
+  const getWatchLater: any = localStorage.getItem(WATCHLATER_SECTION)
 
   const [width, setWidth] = useState(window.innerWidth);
   const [movies, setMovies] = useState<any | []>([])
   const [trailerData, setTrailerData] = useState<Number | null>(null)
   const [videos, setVideos] = useState<any | []>([])
-  const [favourites, setFavourites] = useState<any | []>(JSON.parse(geFavourites) != null ? JSON.parse(geFavourites) : [])
-  const [watchLater, setWatchLater] = useState<any | []>(JSON.parse(getWatchLater) != null ? JSON.parse(getWatchLater) : [])
+  const [favourites, setFavourites] = useState<any | []>((getFavourites !== null) ? getFavourites.split(',').map(Number) : [])
+  const [watchLater, setWatchLater] = useState<any | []>((getWatchLater !== null) ? getWatchLater.split(',').map(Number) : [])
   const [movieList, setMovieLists] = useState<any | []>([])
   const handleWindowSizeChange = () => {
     setWidth(window.innerWidth);
@@ -99,7 +99,7 @@ const Home: FunctionComponent = () => {
       <input type="text" className="searchMovie" data-testid="searchMovie" id="searchMovie" onChange={handleSearchMovie} />
     </div>
     <div className="Home-links">
-      <div onClick={() => callHome()}>Home</div>
+      <div onClick={callHome}>Home</div>
       <div onClick={() => callSections(favourites, FAVOURITES_PAGE)}>Favourites</div>
       <div onClick={() => callSections(watchLater, WATCHLATER_PAGE)}>Watch Later</div>
     </div>
@@ -115,7 +115,7 @@ const Home: FunctionComponent = () => {
       ShowTrailer={ShowTrailer}
     />
     {trailerData ? (
-      <Suspense>
+      <Suspense fallback={<h1>Loading trailers...</h1>}>
         <Trailers videos={videos} width={width} setTrailerData={setTrailerData} />
       </Suspense>
     ) : <Fragment />}

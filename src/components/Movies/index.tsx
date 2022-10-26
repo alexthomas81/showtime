@@ -30,7 +30,7 @@ const Movies: FunctionComponent<Props> = ({ movieList, page, updatePage, width, 
     let newState = [...favourites];
     let newArray = createArray(status, newState, id)
     setFavourites(newArray)
-    localStorage.setItem(FAVOURITES_SECTION, JSON.stringify(newArray))
+    localStorage.setItem(FAVOURITES_SECTION, newArray.toString())
     updatePage(page, FAVOURITES_SECTION, newArray)
   }
 
@@ -38,7 +38,7 @@ const Movies: FunctionComponent<Props> = ({ movieList, page, updatePage, width, 
     let newState = [...watchLater];
     let newArray = createArray(status, newState, id)
     setWatchLater(newArray)
-    localStorage.setItem(WATCHLATER_SECTION, JSON.stringify(newArray))
+    localStorage.setItem(WATCHLATER_SECTION, newArray.toString())
     updatePage(page, WATCHLATER_SECTION, newArray)
   }
 
